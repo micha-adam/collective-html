@@ -53,7 +53,7 @@ trait FormAccessible
                 return $relatedModel->getFormValue($key);
             }
 
-            return data_get($relatedModel, empty($key)? null: $key);
+            return data_get($relatedModel, empty($key) ? null : $key);
         }
 
         // No form mutator, let the model resolve this
@@ -82,9 +82,9 @@ trait FormAccessible
         $methods = $this->getReflection()->getMethods(ReflectionMethod::IS_PUBLIC);
 
         $mutator = collect($methods)
-          ->first(function (ReflectionMethod $method) use ($key) {
-              return $method->getName() === 'form' . Str::studly($key) . 'Attribute';
-          });
+            ->first(function (ReflectionMethod $method) use ($key) {
+                return $method->getName() === 'form' . Str::studly($key) . 'Attribute';
+            });
 
         return (bool) $mutator;
     }

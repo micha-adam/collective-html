@@ -80,7 +80,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
                         $directive = strtolower($namespace).'_'.$snakeMethod;
 
                         $bladeCompiler->directive($directive, function ($expression) use ($namespace, $method) {
-                            return "<?php echo $namespace::$method($expression); ?>";
+                            return "<?php echo app('$namespace')->$method($expression); ?>";
                         });
                     }
                 }

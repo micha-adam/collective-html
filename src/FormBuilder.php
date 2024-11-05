@@ -7,6 +7,7 @@ use DateTime;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -114,9 +115,9 @@ class FormBuilder
      * @param  \Illuminate\Contracts\Routing\UrlGenerator $url
      * @param  \Illuminate\Contracts\View\Factory         $view
      * @param  string                                     $csrfToken
-     * @param  Request                                    $request
+     * @param  Request|null                                $request
      */
-    public function __construct(HtmlBuilder $html, UrlGenerator $url, Factory $view, $csrfToken, Request $request = null)
+    public function __construct(HtmlBuilder $html, UrlGenerator $url, Factory $view, string $csrfToken, ?Request $request = null)
     {
         $this->url = $url;
         $this->html = $html;
@@ -1280,11 +1281,11 @@ class FormBuilder
      * Get the value that should be assigned to the field.
      *
      * @param  string $name
-     * @param  string $value
+     * @param  string|null $value
      *
      * @return mixed
      */
-    public function getValueAttribute($name, $value = null)
+    public function getValueAttribute(string $name, ?string $value = null)
     {
         if (is_null($name)) {
             return $value;
@@ -1376,7 +1377,7 @@ class FormBuilder
      *
      * @return mixed
      */
-    public function old($name)
+    public function old(string $name)
     {
         if (isset($this->session)) {
             $key = $this->transformKey($name);
